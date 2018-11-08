@@ -165,16 +165,16 @@
 
 
 #pragma mark - setters
-- (void)setImageURLStringArray:(NSArray *)imageURLStringArray {
+- (void)setGc_imageURLStringArray:(NSArray *)gc_imageURLStringArray {
     
-    if (imageURLStringArray) {
-        _imageURLStringArray = imageURLStringArray;
+    if (_gc_imageURLStringArray) {
+        _gc_imageURLStringArray = gc_imageURLStringArray;
         self.curIndex = 0;
         
-        if (imageURLStringArray.count > 1) {
+        if (gc_imageURLStringArray.count > 1) {
             // auto scroll
             [self.scrollTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:self.scrollDuration]];
-            self.pageLabel.text = [NSString stringWithFormat:@"1/%lu", (unsigned long)imageURLStringArray.count];
+            self.pageLabel.text = [NSString stringWithFormat:@"1/%lu", (unsigned long)gc_imageURLStringArray.count];
         } else {
             [self.leftImageView removeFromSuperview];
             [self.rightImageView removeFromSuperview];
@@ -188,14 +188,14 @@
     if (_curIndex >= 0) {
         _curIndex = curIndex;
         
-        NSInteger imageCount = self.imageURLStringArray.count;
+        NSInteger imageCount = self.gc_imageURLStringArray.count;
         NSInteger leftIndex = (curIndex + imageCount - 1) % imageCount;
         NSInteger rightIndex= (curIndex + 1) % imageCount;
         
         
-        NSURL *leftImageUrl = [NSURL URLWithString:self.imageURLStringArray[leftIndex]];
-        NSURL *curImageUrl = [NSURL URLWithString:self.imageURLStringArray[curIndex]];
-        NSURL *rightImageUrl = [NSURL URLWithString:self.imageURLStringArray[rightIndex]];
+        NSURL *leftImageUrl = [NSURL URLWithString:self.gc_imageURLStringArray[leftIndex]];
+        NSURL *curImageUrl = [NSURL URLWithString:self.gc_imageURLStringArray[curIndex]];
+        NSURL *rightImageUrl = [NSURL URLWithString:self.gc_imageURLStringArray[rightIndex]];
         
         if(self.gc_imageViewLoad){
             
@@ -215,22 +215,22 @@
         
         [self setScrollViewContentOffsetCenter];
         
-        self.pageLabel.text = [NSString stringWithFormat:@"%li/%lu", (long)curIndex+1, (unsigned long)_imageURLStringArray.count];
+        self.pageLabel.text = [NSString stringWithFormat:@"%li/%lu", (long)curIndex+1, (unsigned long)_gc_imageURLStringArray.count];
     }
 }
 
 #pragma mark - caculate curIndex
 - (void)caculateCurIndex {
     
-    if (self.imageURLStringArray && self.imageURLStringArray.count > 0) {
+    if (self.gc_imageURLStringArray && self.gc_imageURLStringArray.count > 0) {
         CGFloat pointX = self.scrollView.contentOffset.x;
         
         CGFloat criticalValue = .2f;
         
         if (pointX > 2 * CGRectGetWidth(self.scrollView.bounds) - criticalValue) {
-            self.curIndex = (self.curIndex + 1) % self.imageURLStringArray.count;
+            self.curIndex = (self.curIndex + 1) % self.gc_imageURLStringArray.count;
         } else if (pointX < criticalValue) {
-            self.curIndex = (self.curIndex + self.imageURLStringArray.count - 1) % self.imageURLStringArray.count;
+            self.curIndex = (self.curIndex + self.gc_imageURLStringArray.count - 1) % self.gc_imageURLStringArray.count;
         }
     }
 }
@@ -239,14 +239,14 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     
-    if (self.imageURLStringArray.count > 1) {
+    if (self.gc_imageURLStringArray.count > 1) {
         [self.scrollTimer setFireDate:[NSDate distantFuture]];
     }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     
-    if (self.imageURLStringArray.count > 1) {
+    if (self.gc_imageURLStringArray.count > 1) {
         [self.scrollTimer setFireDate:[NSDate dateWithTimeIntervalSinceNow:self.scrollDuration]];
     }
 }

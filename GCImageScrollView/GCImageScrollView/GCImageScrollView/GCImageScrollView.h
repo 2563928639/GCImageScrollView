@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) void (^gc_imageViewLoad) (UIImageView *imageView, NSURL *url);
 @property (nonatomic, copy) void (^gc_imageDidClick) (NSInteger curIndex);
 
-@property (nonatomic, copy) NSArray *imageURLStringArray;
+@property (nonatomic, copy) NSArray *gc_imageURLStringArray;
 
 - (instancetype)initWithFrame:(CGRect)frame scrollDuration:(NSTimeInterval)duration;
 

@@ -32,7 +32,7 @@
                        @"https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=64257681,3207562848&fm=26&gp=0.jpg",
                        nil];
     
-    imageScrollView.imageURLStringArray = images;
+    imageScrollView.gc_imageURLStringArray = images;
     imageScrollView.gc_imageViewLoad = ^(UIImageView * _Nonnull imageView, NSURL * _Nonnull url) {
         [imageView sd_setImageWithURL:url];
     };
