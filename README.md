@@ -1,2 +1,2 @@
-# GCUIImageScrollView
+# GCImageScrollView
 image scroll
